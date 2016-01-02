@@ -18,6 +18,34 @@
 			<img src="icons/pinboard64.png" alt="" width="64" height="64">
 			Pinboard
 		</a>
+		<a href="#quill-bookmark">
+			<img src="icons/bookmark64.png" alt="" width="64" height="64">
+			Quill Bookmark
+		</a>
+		<a href="#quill-like">
+			<img src="icons/star64.png" alt="" width="64" height="64">
+			Quill Like
+		</a>
+		<a href="#micropublish-note">
+			<img src="icons/note64.png" alt="" width="64" height="64">
+			Micropublish Note
+		</a>
+		<a href="#micropublish-bookmark">
+			<img src="icons/bookmark64.png" alt="" width="64" height="64">
+			Micropublish Bookmark
+		</a>
+		<a href="#micropublish-reply">
+			<img src="icons/reply64.png" alt="" width="64" height="64">
+			Micropublish Reply
+		</a>
+		<a href="#micropublish-repost">
+			<img src="icons/repost64.png" alt="" width="64" height="64">
+			Micropublish Repost
+		</a>
+		<a href="#micropublish-like">
+			<img src="icons/star64.png" alt="" width="64" height="64">
+			Micropublish Like
+		</a>
 	</div>
 	<form onsubmit="event.preventDefault(); activate(this)">
 		<label> Share URL <input id="f-shareURL" type="url" placeholder="https://pinboard.in/add?showtags=yes&url=%{url}&title=%{title}&description=%{description}"> </label>
@@ -33,9 +61,20 @@
 	</form>
 </main>
 
-<p>
-	If this doesn't work, make sure you're using a recent Firefox with JavaScript enabled, contents of all fields are valid, and this page is not on <code>localhost</code> or <code>file://</code>.
-</p>
+<footer>
+	<p>
+		If this doesn't work, make sure you're using a recent Firefox with JavaScript enabled, contents of all fields are valid, and this page is not on <code>localhost</code> or <code>file://</code>.
+	</p>
+	<p class="icons-cc">
+		bookmark by Muneer A.Safiah from the Noun Project;
+		Document by Hakan Yalcin from the Noun Project;
+		Reply by Anna Nebbiati from the Noun Project;
+		Reblog by Thomas Helbig from the Noun Project
+	</p>
+	<p>
+		<a href="https://unrelenting.technology">unrelenting.technology</a>
+	</p>
+</footer>
 
 <script>
 	function $id (x) { return document.getElementById(x) }
@@ -68,7 +107,63 @@
 			icon64URL: baseurl + "/icons/pinboard64.png",
 			shareURL: "https://pinboard.in/add?showtags=yes&url=%{url}&title=%{title}&description=%{description}",
 			description: "Bookmark on Pinboard. Pinboard is a personal archive for things you find online and don't want to forget."
-		}
+		},
+		"#quill-bookmark": {
+			name: "Bookmark via Quill",
+			iconURL: baseurl + "/icons/bookmark16.png",
+			icon32URL: baseurl + "/icons/bookmark32.png",
+			icon64URL: baseurl + "/icons/bookmark64.png",
+			shareURL: "https://quill.p3k.io/bookmark?url=%{url}&name=%{title}&content=%{description}",
+			description: "Bookmark on your website using Micropub. #IndieWeb"
+		},
+		"#quill-like": {
+			name: "Like via Quill",
+			iconURL: baseurl + "/icons/star16.png",
+			icon32URL: baseurl + "/icons/star32.png",
+			icon64URL: baseurl + "/icons/star64.png",
+			shareURL: "https://quill.p3k.io/favorite?url=%{url}",
+			description: "Like on your website using Micropub. #IndieWeb"
+		},
+		"#micropublish-note": {
+			name: "Note via Micropublish",
+			iconURL: baseurl + "/icons/note16.png",
+			icon32URL: baseurl + "/icons/note32.png",
+			icon64URL: baseurl + "/icons/note64.png",
+			shareURL: "https://micropublish.herokuapp.com/new?content=[%{title}](%{url})",
+			description: "Mention in a note on your website using Micropub. #IndieWeb"
+		},
+		"#micropublish-bookmark": {
+			name: "Bookmark via Micropublish",
+			iconURL: baseurl + "/icons/bookmark16.png",
+			icon32URL: baseurl + "/icons/bookmark32.png",
+			icon64URL: baseurl + "/icons/bookmark64.png",
+			shareURL: "https://micropublish.herokuapp.com/new/bookmark?bookmark=%{url}&name=%{title}&content=%{description}",
+			description: "Bookmark on your website using Micropub. #IndieWeb"
+		},
+		"#micropublish-reply": {
+			name: "Reply via Micropublish",
+			iconURL: baseurl + "/icons/reply16.png",
+			icon32URL: baseurl + "/icons/reply32.png",
+			icon64URL: baseurl + "/icons/reply64.png",
+			shareURL: "https://micropublish.herokuapp.com/new/reply?in_reply_to=%{url}",
+			description: "Reply on your website using Micropub. #IndieWeb"
+		},
+		"#micropublish-repost": {
+			name: "Repost via Micropublish",
+			iconURL: baseurl + "/icons/repost16.png",
+			icon32URL: baseurl + "/icons/repost32.png",
+			icon64URL: baseurl + "/icons/repost64.png",
+			shareURL: "https://micropublish.herokuapp.com/new/repost?repost_of=%{url}",
+			description: "Repost on your website using Micropub. #IndieWeb"
+		},
+		"#micropublish-like": {
+			name: "Like via Micropublish",
+			iconURL: baseurl + "/icons/star16.png",
+			icon32URL: baseurl + "/icons/star32.png",
+			icon64URL: baseurl + "/icons/star64.png",
+			shareURL: "https://micropublish.herokuapp.com/new/like?like_of=%{url}",
+			description: "Like on your website using Micropub. #IndieWeb"
+		},
 	}
 	window.onhashchange = function () {
 		var s = services[location.hash]
