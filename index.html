@@ -9,6 +9,9 @@
 	<p>
 		The <a href="https://activations.cdn.mozilla.net">official service directory</a> is quite limited. More services and a way to quickly add custom services are available here.
 	</p>
+	<p>
+		To allow adding multiple services from this page, go to <a href="about:config">about:config</a> and set <code>social.directories</code> to <code>https://activations.cdn.mozilla.net,https://myfreeweb.github.io</code>
+	</p>
 	<noscript>Enable JavaScript</noscript>
 </header>
 
@@ -53,7 +56,7 @@
 		<label> Author <input id="f-author" type="text" value="FoxShare"> </label>
 		<label> Home page URL <input id="f-homepageURL" type="url"> </label>
 		<label> Description <textarea id="f-description"></textarea> </label>
-		<label> Origin URL <input id="f-origin" type="url"> </label>
+		<label> Origin URL (this determines uniqueness of the service, doesn't have to be an actual web page) <input id="f-origin" type="url"> </label>
 		<label> Icon 16&times;16 URL <input id="f-iconURL" type="url"> </label>
 		<label> Icon 32&times;32 URL <input id="f-icon32URL" type="url"> </label>
 		<label> Icon 64&times;64 URL <input id="f-icon64URL" type="url"> </label>
@@ -173,7 +176,7 @@
 		$id("f-icon64URL").value = s.icon64URL
 		$id("f-shareURL").value = s.shareURL
 		$id("f-description").value = s.description
-		$id("f-origin").value = baseurl + location.hash
+		$id("f-origin").value = "https://" + location.hash.replace("#", "") + "." + location.host // This determines uniqueness of the service
 	}
 	onhashchange()
 </script>
