@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>FoxShare</title>
+<link rel="stylesheet" href="style.css">
+
+<header>
+	<h1>FoxShare</h1>
+	<h2>Add more social services to your Firefox Share button</h2>
+	<p>
+		The <a href="https://activations.cdn.mozilla.net">official service directory</a> is quite limited. More services and a way to quickly add custom services are available here.
+	</p>
+	<noscript>Enable JavaScript</noscript>
+</header>
+
+<main>
+	<div class="known-services">
+		<a href="#pinboard">
+			<img src="icons/pinboard64.png" alt="" width="64" height="64">
+			Pinboard
+		</a>
+	</div>
+	<form onsubmit="event.preventDefault(); activate(this)">
+		<label> Share URL <input id="f-shareURL" type="url" placeholder="https://pinboard.in/add?showtags=yes&url=%{url}&title=%{title}&description=%{description}"> </label>
+		<label> Name <input id="f-name" type="text"> </label>
+		<label> Author <input id="f-author" type="text" value="FoxShare"> </label>
+		<label> Home page URL <input id="f-homepageURL" type="url"> </label>
+		<label> Description <textarea id="f-description"></textarea> </label>
+		<label> Origin URL <input id="f-origin" type="url"> </label>
+		<label> Icon 16&times;16 URL <input id="f-iconURL" type="url"> </label>
+		<label> Icon 32&times;32 URL <input id="f-icon32URL" type="url"> </label>
+		<label> Icon 64&times;64 URL <input id="f-icon64URL" type="url"> </label>
+		<button>Add service</button>
+	</form>
+</main>
+
+<p>
+	If this doesn't work, make sure you're using a recent Firefox with JavaScript enabled, and this page is not on <code>localhost</code> or <code>file://</code>.
+</p>
+
+<script>
+	function $id (x) { return document.getElementById(x) }
+	var loc = location.href
+	var baseurl = loc.substring(0, loc.lastIndexOf('/'))
+	$id("f-origin").value = baseurl
+	function activate (node) {
+		var data = {
+			name: $id("f-name").value,
+			origin: $id("f-origin").value,
+			iconURL: $id("f-iconURL").value,
+			icon32URL: $id("f-icon32URL").value,
+			icon64URL: $id("f-icon64URL").value,
+			shareURL: $id("f-shareURL").value,
+			description: $id("f-description").value,
+			author: $id("f-author").value,
+			homepageURL: $id("f-homepageURL").value
+		}
+		var event = new CustomEvent("ActivateSocialFeature")
+		node.setAttribute("data-service", JSON.stringify(data))
+		node.dispatchEvent(event)
+	}
+
+	var services = {
+		"#pinboard": {
+			name: "Pinboard",
+			iconURL: baseurl + "/icons/pinboard16.png",
+			icon32URL: baseurl + "/icons/pinboard32.png",
+			icon64URL: baseurl + "/icons/pinboard64.png",
+			shareURL: "https://pinboard.in/add?showtags=yes&url=%{url}&title=%{title}&description=%{description}",
+			description: "Bookmark on Pinboard. Pinboard is a personal archive for things you find online and don't want to forget.",
+			homepageURL: "https://pinboard.in"
+		}
+	}
+	window.onhashchange = function () {
+		var s = services[location.hash]
+		$id("f-name").value = s.name
+		$id("f-iconURL").value = s.iconURL
+		$id("f-icon32URL").value = s.icon32URL
+		$id("f-icon64URL").value = s.icon64URL
+		$id("f-shareURL").value = s.shareURL
+		$id("f-description").value = s.description
+		$id("f-homepageURL").value = s.homepageURL
+	}
+	onhashchange()
+</script>
