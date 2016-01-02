@@ -34,7 +34,7 @@
 </main>
 
 <p>
-	If this doesn't work, make sure you're using a recent Firefox with JavaScript enabled, and this page is not on <code>localhost</code> or <code>file://</code>.
+	If this doesn't work, make sure you're using a recent Firefox with JavaScript enabled, contents of all fields are valid, and this page is not on <code>localhost</code> or <code>file://</code>.
 </p>
 
 <script>
@@ -42,6 +42,7 @@
 	var loc = location.href
 	var baseurl = loc.substring(0, loc.lastIndexOf('/'))
 	$id("f-origin").value = baseurl
+	$id("f-homepageURL").value = baseurl
 	function activate (node) {
 		var data = {
 			name: $id("f-name").value,
@@ -66,8 +67,7 @@
 			icon32URL: baseurl + "/icons/pinboard32.png",
 			icon64URL: baseurl + "/icons/pinboard64.png",
 			shareURL: "https://pinboard.in/add?showtags=yes&url=%{url}&title=%{title}&description=%{description}",
-			description: "Bookmark on Pinboard. Pinboard is a personal archive for things you find online and don't want to forget.",
-			homepageURL: "https://pinboard.in"
+			description: "Bookmark on Pinboard. Pinboard is a personal archive for things you find online and don't want to forget."
 		}
 	}
 	window.onhashchange = function () {
@@ -78,7 +78,6 @@
 		$id("f-icon64URL").value = s.icon64URL
 		$id("f-shareURL").value = s.shareURL
 		$id("f-description").value = s.description
-		$id("f-homepageURL").value = s.homepageURL
 	}
 	onhashchange()
 </script>
