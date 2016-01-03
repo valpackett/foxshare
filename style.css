@@ -9,7 +9,7 @@ a:hover, a:focus { color: #0095DD; }
 .known-services img { display: block; margin: 0 auto 0.5em; }
 
 label, input, textarea, button { display: block; }
-label { margin-bottom: 0.8em; }
+label, button { margin-bottom: 0.8em; }
 input, textarea { width: 100%; }
 input, textarea, button { background: #fff; padding: 0.4em; border: 1px solid #00539F; transition: ease 0.4s border-color; }
 input:focus, textarea:focus, button:focus { border-color: #E66000; }

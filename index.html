@@ -60,6 +60,7 @@
 		<label> Icon 16&times;16 URL <input id="f-iconURL" type="url"> </label>
 		<label> Icon 32&times;32 URL <input id="f-icon32URL" type="url"> </label>
 		<label> Icon 64&times;64 URL <input id="f-icon64URL" type="url"> </label>
+		<button onclick="event.preventDefault(); makeDataUrls()">Make data URLs for icons</button>
 		<button>Add service</button>
 	</form>
 </main>
@@ -101,6 +102,26 @@
 		var event = new CustomEvent("ActivateSocialFeature")
 		node.setAttribute("data-service", JSON.stringify(data))
 		node.dispatchEvent(event)
+	}
+
+	function fetchImage (url, cb) {
+		var img = document.createElement("img")
+		img.onload = function () {
+			var canvas = document.createElement("canvas")
+			canvas.width = img.width
+			canvas.height = img.height
+			canvas.getContext("2d").drawImage(img, 0, 0)
+			cb(canvas.toDataURL("image/png"))
+		}
+		img.src = url
+	}
+	function makeDataUrls () {
+		function imgSetter (id) {
+			return function (url) { $id(id).value = url }
+		}
+		fetchImage($id("f-iconURL").value, imgSetter("f-iconURL"))
+		fetchImage($id("f-icon32URL").value, imgSetter("f-icon32URL"))
+		fetchImage($id("f-icon64URL").value, imgSetter("f-icon64URL"))
 	}
 
 	var services = {
@@ -178,6 +199,7 @@
 		$id("f-shareURL").value = s.shareURL
 		$id("f-description").value = s.description
 		$id("f-origin").value = "https://" + location.hash.replace("#", "") + "." + location.host // This determines uniqueness of the service
+		makeDataUrls()
 	}
 	onhashchange()
 </script>
